@@ -24,6 +24,7 @@ class ChatBot {
       if (this.isSpeaking()) {
         this.speak();
       } else {
+        this.onStopSpeaking();
         this.listen();
       }
     };
@@ -111,4 +112,6 @@ class ChatBot {
   setVoice(index) {
     this.voice.setVoice(index);
   }
+
+  onStopSpeaking() {}
 }

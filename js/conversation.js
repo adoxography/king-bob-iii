@@ -18,9 +18,12 @@ const CITIES = {
 };
 
 const SONGS = {
-  'the vegetable song': "Tomato tomato tomato tomato tomato tomato tomato potato mato potato potato pumpkin pumpkin pumpkin pumpkin parsley parsley parsley parsley",
-  'the huggies commercial song': 'We all need a hug in the morning and one at the end of the day and as many as possible squeeze in between to keep life\'s struggles at bay. It\'s my belief that for instant relief, a hug is the best cure of all. I\'m a big kid now. Pampers!',
+  'the vegetable song': "Tomato...tomato...tomato...tomato...tomato...tomato...tomato potato mato...potato...potato...pumpkin...pumpkin...pumpkin...pumpkin...parsley. parsley. parsley. parsley",
+
+  "the huggies commercial song": "We all need a hug in the morning and one at the end of the day and as many as possible squeeze in between to keep life's struggles at bay. It's my belief that for instant relief, a hug is the best cure of all. I'm a big kid now. Pampers!",
+
   'the diaper rap': "I'm a big kid now. Went from baby bottles to drinkin' from sippy cups. Went from wearing diapers to rocking these fresh pullups. We're fifty million strong, so put on your pull ups and help us sing this song. I'm a big kid now.",
+
   'baby shark': `Baby shark do do doodoo doodoo Baby shark do do doodoo doodoo Baby shark do do doodoo doodoo Baby shark
   Mommy shark do do doodoo doodoo Mommy shark do do doodoo doodoo Mommy shark do do doodoo doodoo Mommy shark
   Daddy shark do do doodoo doodoo Daddy shark do do doodoo doodoo Daddy shark do do doodoo doodoo Daddy shark 
@@ -38,15 +41,18 @@ function chat(message) {
   let output = `Sorry, I don't know "${message}."`;
 
   let cityMatch = message.match(/^where is (.+)/);
-  let songMatch = message.match(/^(?:sing|say|rap) (.+)/);
+  let songMatch = message.match(/^(?:sing|say|rap|wrap) (.+)/);
 
   if (message == "what is your name") {
     output = "My name is King Bob III";
   } else if (message == 'do you like spaghetti') {
-    output = "Yes, I like spaghetts!";
+    output = "Yes, I like spaghetti!";
+  } else if (message == 'do you like fortnite') {
+    output = 'Yes, I like Fortnite';
   } else if (songMatch) {
     let song = songMatch[1].toLowerCase();
     if (song in SONGS) {
+      startDancing();
       output = SONGS[song];
     } else {
       output = "I don't know that one."

@@ -8,6 +8,19 @@ let canvas;
 let chatLog;
 let chatBot;
 let voiceSelect;
+let movingRight = true;
+let xOffset = 0;
+let MAX_X_OFFSET = 25;
+let dancing = false;
+
+function startDancing() {
+  dancing = true;
+}
+
+function stopDancing() {
+  dancing = false;
+  xOffset = 0;
+}
 
 /**
  * Initializes all of the variables needed for Bob to run
@@ -35,6 +48,10 @@ function setup() {
     voiceSelect.elt.selectedIndex = 1;
   };
 
+  chatBot.onStopSpeaking = () => {
+    stopDancing();
+  };
+
   voiceSelect.changed(() => {
     chatBot.setVoice(voiceSelect.value());
   });
@@ -46,8 +63,26 @@ function setup() {
  * Called by p5.js
  */
 function draw() {
+  let offset = 0;
+
+  if (dancing) {
+    if (movingRight) {
+      if (xOffset >= MAX_X_OFFSET) {
+        movingRight = false;
+      } else {
+        xOffset++;
+      }
+    } else {
+      if (xOffset <= -MAX_X_OFFSET) {
+        movingRight = true;
+      } else {
+        xOffset--;
+      }
+    }
+  }
+
   background(BACKGROUND_COLOUR);
-  drawBob(chatBot.isSpeaking());
+  drawBob(chatBot.isSpeaking(), xOffset);
 }
 
 /**

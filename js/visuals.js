@@ -42,30 +42,30 @@ const EYE_COLOUR        = "#000000";
  * @param isSpeaking  Whether or not Bob is currently speaking, and should
  *                    have his mouth open
  */
-function drawBob(isSpeaking) {
-  drawBody();
-  drawHead();
-  drawCrown();
-  drawFace(isSpeaking);
-  drawMoustache();
+function drawBob(isSpeaking, xOffset = 0) {
+  drawBody(xOffset);
+  drawHead(xOffset);
+  drawCrown(xOffset);
+  drawFace(isSpeaking, xOffset);
+  drawMoustache(xOffset);
 }
 
 /**
  * Draws Bob's body on the screen
  */
-function drawBody() {
+function drawBody(xOffset) {
   stroke(BODY_COLOUR);
   fill(BODY_COLOUR);
-  ellipse(width / 2, height / 2 + BODY_RADIUS, BODY_RADIUS * 2, BODY_RADIUS * 2);
+  ellipse(width / 2 + xOffset, height / 2 + BODY_RADIUS, BODY_RADIUS * 2, BODY_RADIUS * 2);
 }
 
 /**
  * Draws Bob's head, without any facial features, on the screen
  */
-function drawHead() {
+function drawHead(xOffset) {
   stroke(FACE_COLOUR);
   fill(FACE_COLOUR);
-  ellipse(width / 2, height / 2 - HEAD_RADIUS, HEAD_RADIUS * 2, HEAD_RADIUS * 2);
+  ellipse(width / 2 + xOffset, height / 2 - HEAD_RADIUS, HEAD_RADIUS * 2, HEAD_RADIUS * 2);
 }
 
 /**
@@ -73,22 +73,22 @@ function drawHead() {
  *
  * @param isSpeaking  Whether or not Bob should have his mouth open
  */
-function drawFace(isSpeaking) {
+function drawFace(isSpeaking, xOffset) {
   stroke(EYE_COLOUR);
   fill(EYE_COLOUR);
 
   let mouthHeight = isSpeaking ? MOUTH_HEIGHT : 1;
 
-  ellipse(width / 2 - EYE_X_OFFSET, height / 2 - HEAD_RADIUS - EYE_Y_OFFSET, EYE_RADIUS * 2, EYE_RADIUS * 2);
-  ellipse(width / 2 + EYE_X_OFFSET, height / 2 - HEAD_RADIUS - EYE_Y_OFFSET, EYE_RADIUS * 2, EYE_RADIUS * 2);
+  ellipse(width / 2 - EYE_X_OFFSET + xOffset, height / 2 - HEAD_RADIUS - EYE_Y_OFFSET, EYE_RADIUS * 2, EYE_RADIUS * 2);
+  ellipse(width / 2 + EYE_X_OFFSET + xOffset, height / 2 - HEAD_RADIUS - EYE_Y_OFFSET, EYE_RADIUS * 2, EYE_RADIUS * 2);
 
-  ellipse(width / 2, height / 2 - HEAD_RADIUS + MOUTH_Y_OFFSET, MOUTH_WIDTH, mouthHeight);
+  ellipse(width / 2 + xOffset, height / 2 - HEAD_RADIUS + MOUTH_Y_OFFSET, MOUTH_WIDTH, mouthHeight);
 }
 
 /**
  * Draws Bob's crown on the screen
  */
-function drawCrown() {
+function drawCrown(xOffset) {
   let crownHeight = HEAD_RADIUS / 2;
   let crownX = width / 2 - HEAD_RADIUS;
   let crownY = height / 2 - HEAD_RADIUS - crownHeight - EYE_Y_OFFSET * 3.5;
@@ -100,16 +100,16 @@ function drawCrown() {
   fill(CROWN_COLOUR);
 
   // The headband
-  rect(crownX, crownY, HEAD_RADIUS * 2, crownHeight);
+  rect(crownX + xOffset, crownY, HEAD_RADIUS * 2, crownHeight);
 
   // The triangles
   for (let i = 0; i < NUM_CROWN_POINTS; i++) {
     triangle(
-      crownX + pointWidth * i,
+      crownX + pointWidth * i + xOffset,
       crownY,
-      crownX + pointWidth * i + pointWidth,
+      crownX + pointWidth * i + pointWidth + xOffset,
       crownY,
-      crownX + pointWidth * i + pointHalfWidth,
+      crownX + pointWidth * i + pointHalfWidth + xOffset,
       crownY - crownHeight
     );
   }
@@ -118,14 +118,14 @@ function drawCrown() {
 /**
  * Draws Bob's moustache on the screen
  */
-function drawMoustache() {
+function drawMoustache(xOffset) {
   noFill();
   stroke(MOUSTACHE_COLOUR);
   strokeWeight(MOUSTACHE_THICKNESS);
 
-  arc(width / 2 + 20, height / 2 - MOUSTACHE_OFFSET, MOUSTACHE_RADIUS * 4, MOUSTACHE_RADIUS*2, 0, PI);
-  arc(width / 2 + 30, height / 2 - MOUSTACHE_OFFSET, MOUSTACHE_RADIUS * 2, MOUSTACHE_RADIUS*2, PI, 0);
-  arc(width / 2 - 20, height / 2 - MOUSTACHE_OFFSET, MOUSTACHE_RADIUS * 4, MOUSTACHE_RADIUS*2, 0, PI);
-  arc(width / 2 - 30, height / 2 - MOUSTACHE_OFFSET, MOUSTACHE_RADIUS * 2, MOUSTACHE_RADIUS*2, PI, 0);
+  arc(width / 2 + 20 + xOffset, height / 2 - MOUSTACHE_OFFSET, MOUSTACHE_RADIUS * 4, MOUSTACHE_RADIUS*2, 0, PI);
+  arc(width / 2 + 30 + xOffset, height / 2 - MOUSTACHE_OFFSET, MOUSTACHE_RADIUS * 2, MOUSTACHE_RADIUS*2, PI, 0);
+  arc(width / 2 - 20 + xOffset, height / 2 - MOUSTACHE_OFFSET, MOUSTACHE_RADIUS * 4, MOUSTACHE_RADIUS*2, 0, PI);
+  arc(width / 2 - 30 + xOffset, height / 2 - MOUSTACHE_OFFSET, MOUSTACHE_RADIUS * 2, MOUSTACHE_RADIUS*2, PI, 0);
   strokeWeight(1);
 }
