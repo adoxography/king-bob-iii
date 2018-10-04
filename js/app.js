@@ -43,4 +43,5 @@ function draw() {
 function logMessage(speaker, message) {
   let el = createElement('li', `${speaker}: ${message}`);
   el.parent(chatLog);
+  chatLog.elt.scrollTo(0, chatLog.elt.scrollHeight);
 }
