@@ -107,4 +107,8 @@ class ChatBot {
    * @param speech  The line that was uttered
    */
   onSpeak(speech) {}
+
+  setVoice(index) {
+    this.voice.setVoice(index);
+  }
 }

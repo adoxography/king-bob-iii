@@ -7,6 +7,7 @@
 let canvas;
 let chatLog;
 let chatBot;
+let voiceSelect;
 
 /**
  * Initializes all of the variables needed for Bob to run
@@ -22,6 +23,21 @@ function setup() {
   chatBot.handleSpeechRecognized = chat;
   chatBot.onSpeak = speech => logMessage('BOB', speech);
   chatBot.listen();
+
+  voiceSelect = createSelect();
+  voiceSelect.parent('option-container');
+
+  chatBot.voice.onLoad = () => {
+    for (let voice of chatBot.voice.voices) {
+      voiceSelect.option(voice.name);
+    }
+
+    voiceSelect.elt.selectedIndex = 1;
+  };
+
+  voiceSelect.changed(() => {
+    chatBot.setVoice(voiceSelect.value());
+  });
 }
 
 /**
