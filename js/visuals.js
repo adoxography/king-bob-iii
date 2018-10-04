@@ -93,7 +93,7 @@ function drawCrown() {
   let crownX = width / 2 - HEAD_RADIUS;
   let crownY = height / 2 - HEAD_RADIUS - crownHeight - EYE_Y_OFFSET * 3.5;
   let crownWidth = HEAD_RADIUS * 2;
-  let pointWidth = crownWidth / NUM_POINTS;
+  let pointWidth = crownWidth / NUM_CROWN_POINTS;
   let pointHalfWidth = pointWidth / 2;
 
   stroke(CROWN_COLOUR);
