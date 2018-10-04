@@ -46,7 +46,11 @@ function chat(message) {
     output = "Yes, I like spaghetts!";
   } else if (songMatch) {
     let song = songMatch[1].toLowerCase();
-    output = SONGS[song];
+    if (song in SONGS) {
+      output = SONGS[song];
+    } else {
+      output = "I don't know that one."
+    }
   } else if (cityMatch) {
     let city = cityMatch[1].toLowerCase();
     if (city in CITIES) {
