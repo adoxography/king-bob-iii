@@ -8,17 +8,60 @@
         <script src="js/speech.js"></script>
         <script src="js/conversation.js"></script>
         <script src="js/visuals.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/style.css"></link>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
     </head>
     <body>
-        <div id="interface-container">
-            <div id="bob-container"></div>
-            <div id="option-container">
-                <label for="voice-select-box">Voice</label>
+        <section class="hero is-primary">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">
+                        King Bob III
+                    </h1>
+                </div>
             </div>
-            <p class="note">*Note: it might take Bob a few seconds to say something the first time his voice is changed.</p>
-        </div>
-        <div id="chat-container"></div>
+        </section>
+        <section class="section">
+            <div class="content">
+                <p>This is King Bob III. He is a friendly little blob who is still learning.</p>
+                <p>Try saying some of these!</p>
+                <ul>
+                    <li>
+                        <p><em>"What is your name?</em></p>
+                    </li>
+                    <li>
+                        <p><em>"Do you like spaghetti?</em></p>
+                    </li>
+                    <li>
+                        <p><em>"Knock knock!"</em></p>
+                    </li>
+                    <li>
+                        <p><em>"Where is ___?"</em> (Bob knows about Canadian capitals)</p>
+                    </li>
+                    <li>
+                        <p><em>"Sing/say/rap the huggies commercial song/the vegetable song/the diaper rap/baby shark"</em></p>
+                    </li>
+                </ul>
+                <p class="has-text-danger">NOTE: King Bob III plays nicely with Google Chrome; he is not tested with other browsers. He will need access to your microphone and speakers to work.</p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="columns">
+                <div class="column">
+                    <div id="bob-container"></div>
+                </div>
+                <div class="column">
+                    <div id="option-container">
+                        <label for="voice-select-box">Voice</label>
+                    </div>
+                    <p class="note">*Note: it might take Bob a few seconds to say something the first time his voice is changed.</p>
+                </div>
+            </div>
+            <div class="content">
+                <div id="chat-container"></div>
+            </div>
+        </section>
+
         <script src="js/app.js"></script>
     </body>
 </html>

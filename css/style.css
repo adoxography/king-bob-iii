@@ -1,4 +1,4 @@
-ul {
+#chat-container ul {
     list-style-type: none;
     max-height: 200px;
     overflow: scroll;
