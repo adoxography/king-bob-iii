@@ -1,0 +1,5 @@
+- Change voice
+- Output conversation to page
+- Write conversation scripts
+- More appearance changes?
+-
