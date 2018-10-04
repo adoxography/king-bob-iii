@@ -77,6 +77,6 @@ function chat(message) {
     }
   }
 
-  logMessage("Bob", output);
+  //logMessage("Bob", output);
   return output;
 }
