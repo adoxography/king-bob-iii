@@ -51,29 +51,43 @@ class KingBobIII {
       let result = this.ears.resultString;
       let message = this.handleSpeechRecognized(result);
       let lines = message.split('\n');
-      this.speak(lines);
+      this.say(lines);
     };
   }
 
   /**
-   * Says the utterance at the front of the speech queue
+   * Adds an utterance to the speech queue and starts speech queue processing
    *
-   * If a string or array is provided, it will be added to the speech queue.
-   *
-   * @param utterance  The utterance(s) to be added to the queue
+   * @param utterance  A string or array of strings to say
    */
-  speak(utterance = null) {
+  say(utterance) {
     if (Array.isArray(utterance)) {
       this.speechQueue = this.speechQueue.concat(utterance);
     } else if (utterance) {
       this.speechQueue.push(utterance);
     }
 
+    this.speak();
+  }
+
+  /**
+   * Says the utterance at the front of the speech queue if the queue is not
+   * empty
+   */
+  speak() {
     if (this.speechQueue.length > 0) {
       let speech = this.speechQueue[0];
       this.onSpeak(speech);
       this.voice.speak(speech);
     }
+  }
+
+  /**
+   * Clears the speech queue and stops the current speech
+   */
+  stopSpeaking() {
+    this.speechQueue = [];
+    this.voice.stop();
   }
 
   /**
