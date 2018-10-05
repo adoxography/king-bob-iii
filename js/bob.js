@@ -1,16 +1,16 @@
 /**
- * Contains the Speech and SpeechRec classes from the p5.speech library so
- * that they can exist with awareness of each other
- *
- * Capable of uttering sequences of statements, and will automatically revert
- * to listening mode when complete. Listens indefinitely when in listening
- * mode.
+ * The most Bob will dance to the left or right
  */
-class ChatBot {
+let MAX_X_OFFSET = 25;
+
+class KingBobIII {
   constructor() {
     this.voice = new p5.Speech();
     this.ears = new p5.SpeechRec();
     this.speechQueue = [];
+
+    this.dancingDirection = 0;
+    this.x = 0;
 
     /**
      * Attach the event listener for the end of an utterance
@@ -24,7 +24,7 @@ class ChatBot {
       if (this.isSpeaking()) {
         this.speak();
       } else {
-        this.onStopSpeaking();
+        this.stopDancing();
         this.listen();
       }
     };
@@ -109,9 +109,61 @@ class ChatBot {
    */
   onSpeak(speech) {}
 
+  /**
+   * Sets Bob's voice
+   *
+   * Must be the index or name of a known voice
+   */
   setVoice(index) {
     this.voice.setVoice(index);
   }
 
-  onStopSpeaking() {}
+  /**
+   * Tells Bob to start dancing
+   */
+  dance() {
+    if (this.dancingDirection == 0) {
+      this.dancingDirection = 1;
+    }
+  }
+
+  /**
+   * Tells Bob to stop dancing
+   *
+   * Bob will move back to the center
+   */
+  stopDancing() {
+    this.dancingDirection = 0;
+  }
+
+  /**
+   * Gets the next x coordinate for Bob
+   *
+   * Bob will calculate where he needs to be next if he is currently dancing.
+   *
+   * @return  The next x coordinate for Bob's center
+   */
+  getNextX() {
+    if (this.dancingDirection == 0) {
+      if (this.x > 0) {
+        this.x--;
+      } else if (this.x < 0) {
+        this.x++;
+      }
+    } else if (this.dancingDirection < 0) {
+      if (this.x <= -MAX_X_OFFSET) {
+        this.dancingDirection = 1;
+      } else {
+        this.x--;
+      }
+    } else {
+      if (this.x >= MAX_X_OFFSET) {
+        this.dancingDirection = -1;
+      } else {
+        this.x++;
+      }
+    }
+
+    return this.x;
+  }
 }

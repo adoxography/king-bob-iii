@@ -6,21 +6,9 @@
  */
 let canvas;
 let chatLog;
-let chatBot;
 let voiceSelect;
-let movingRight = true;
-let xOffset = 0;
-let dancing = false;
+let bob;
 let avatar;
-
-function startDancing() {
-  dancing = true;
-}
-
-function stopDancing() {
-  dancing = false;
-  xOffset = 0;
-}
 
 /**
  * Initializes all of the variables needed for Bob to run
@@ -32,31 +20,27 @@ function setup() {
   canvas.parent('bob-container');
   chatLog = createElement('ul');
 
-  chatBot = new ChatBot();
-  chatBot.handleSpeechRecognized = chat;
-  chatBot.onSpeak = speech => logMessage('BOB', speech);
-  chatBot.listen();
+  bob = new KingBobIII();
+  bob.handleSpeechRecognized = chat;
+  bob.onSpeak = speech => logMessage('BOB', speech);
+  bob.listen();
 
   voiceSelect = createSelect();
   voiceSelect.parent('option-container');
 
-  chatBot.voice.onLoad = () => {
-    for (let voice of chatBot.voice.voices) {
+  bob.voice.onLoad = () => {
+    for (let voice of bob.voice.voices) {
       voiceSelect.option(voice.name);
     }
 
     voiceSelect.elt.selectedIndex = 1;
   };
 
-  chatBot.onStopSpeaking = () => {
-    stopDancing();
-  };
-
   voiceSelect.changed(() => {
-    chatBot.setVoice(voiceSelect.value());
+    bob.setVoice(voiceSelect.value());
   });
 
-  avatar = new KingBobIII();
+  avatar = new KingBobIIIPresenter(bob);
 }
 
 /**
@@ -66,12 +50,6 @@ function setup() {
  */
 function draw() {
   background(BACKGROUND_COLOUR);
-  avatar.isSpeaking = chatBot.isSpeaking();
-  if (dancing) {
-    avatar.dance();
-  } else {
-    avatar.stopDancing();
-  }
   avatar.draw();
 }
 

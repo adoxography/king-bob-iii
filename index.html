@@ -2,13 +2,21 @@
 <html>
     <head>
         <title>Talk to Bob</title>
+
+        <!--Load the p5 libraries-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.js"></script>
         <script src="js/lib/p5.speech.js"></script>
-        <script src="js/speech.js"></script>
+        <!--Load Bob's internal logic-->
+        <script src="js/bob.js"></script>
+        <!--Load Bob's visual presentation-->
+        <script src="js/present.js"></script>
+        <!--Load Bob's conversation behaviour-->
         <script src="js/conversation.js"></script>
-        <script src="js/visuals.js"></script>
+
+        <!--Load the Bulma CSS framework-->
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+        <!--Load custom stylesheet-->
         <link rel="stylesheet" type="text/css" href="css/style.css" />
     </head>
     <body>

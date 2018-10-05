@@ -52,7 +52,7 @@ function chat(message) {
   } else if (songMatch) {
     let song = songMatch[1].toLowerCase();
     if (song in SONGS) {
-      startDancing();
+      bob.dance();
       output = SONGS[song];
     } else {
       output = "I don't know that one."
