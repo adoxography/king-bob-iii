@@ -10,8 +10,8 @@ let chatBot;
 let voiceSelect;
 let movingRight = true;
 let xOffset = 0;
-let MAX_X_OFFSET = 25;
 let dancing = false;
+let avatar;
 
 function startDancing() {
   dancing = true;
@@ -55,6 +55,8 @@ function setup() {
   voiceSelect.changed(() => {
     chatBot.setVoice(voiceSelect.value());
   });
+
+  avatar = new KingBobIII();
 }
 
 /**
@@ -63,26 +65,14 @@ function setup() {
  * Called by p5.js
  */
 function draw() {
-  let offset = 0;
-
-  if (dancing) {
-    if (movingRight) {
-      if (xOffset >= MAX_X_OFFSET) {
-        movingRight = false;
-      } else {
-        xOffset++;
-      }
-    } else {
-      if (xOffset <= -MAX_X_OFFSET) {
-        movingRight = true;
-      } else {
-        xOffset--;
-      }
-    }
-  }
-
   background(BACKGROUND_COLOUR);
-  drawBob(chatBot.isSpeaking(), xOffset);
+  avatar.isSpeaking = chatBot.isSpeaking();
+  if (dancing) {
+    avatar.dance();
+  } else {
+    avatar.stopDancing();
+  }
+  avatar.draw();
 }
 
 /**
