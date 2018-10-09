@@ -1,0 +1,41 @@
+! version = 2.0
+
+! var name = King Bob III
+
++ hello
+- Hi, I'm <bot name>!{topic=global}
+
+> topic global
+  + hello
+  - Hi
+
+  + what is your name
+  - I'm <bot name>
+
+  + you are diarrhea
+  - I can't believe you would say that to me!{topic=offended}
+
+  + my name is *
+  - <set name=<star1>>Hi <get name>!{topic=<get name>}
+
+  + what is my name
+  * <get name> == undefined => Your name is <get name>
+  - I don't know
+< topic
+
+
+> topic graham includes global
+  + hello
+  - wazzup
+
+  + what is my favourite color
+  - Your favourite colour is indigo!
+< topic
+
+> topic offended
+  + im sorry
+  - I forgive you.{topic=global}
+
+  + *
+  - I'm not speaking to you until you apologize.
+< topic

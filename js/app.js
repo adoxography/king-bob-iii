@@ -10,6 +10,42 @@ let voiceSelect;
 let bob;
 let avatar;
 
+
+
+
+
+
+
+let bot = new RiveScript();
+let riveLoaded = false;
+bot.loadFile('js/bot.rive').then(loading_done).catch(loading_error);
+
+function loading_done() {
+  console.log("Bot is loaded.");
+  riveLoaded = true;
+  bot.sortReplies();
+}
+
+function loading_error(error, filename, lineno) {
+  console.log("Error when loading files: " + error);
+}
+
+function riveChat(message) {
+  if (riveLoaded) {
+    bot.reply('local-user', message).then(reply => console.log(reply));
+  } else {
+    console.log('Wait a second while we get things up and running...');
+  }
+}
+
+
+
+
+
+
+
+
+
 /**
  * Initializes all of the variables needed for Bob to run
  *
