@@ -25,7 +25,14 @@ function setup() {
   chatLog.parent('chat-container');
 
   riveBot = new RiveScript();
-  riveBot.loadFile('js/bot.rive').then(loading_done).catch(loading_error);
+  riveBot.loadFile([
+    'rive/main.rive',
+    'rive/global.rive',
+    'rive/heitor.rive',
+    'rive/matteo.rive',
+    'rive/graham.rive',
+    'rive/duncan.rive'
+  ]).then(loading_done).catch(loading_error);
 
   bob = new KingBobIII();
   bob.translate = riveChat;

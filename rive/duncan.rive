@@ -1,0 +1,22 @@
+! array days = mondays tuesdays wednesdays thursdays fridays saturdays sundays
+
+> topic duncan includes global
+  + wazzup
+  - The sky
+
+  + pow
+  - uff
+
+  + do you hate (@days)
+  * <star1> == mondays => No! Why do you even mention it!
+  - Yes, I love <star1>! 
+
+  + what is best
+  - Red (and black) is best
+
+  + what is your favourite food
+  - PIZZAAA!!!
+
+  + do you like star wars
+  - I LIVE there!
+< topic

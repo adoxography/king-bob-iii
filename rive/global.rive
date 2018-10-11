@@ -1,0 +1,88 @@
+> topic global
+  + (hello|hi|hey|howdy|yo) [bob]
+  * <get name> <> undefined => Hi, <get name>!
+  - Hi
+  - Hello
+
+  + what is your name
+  - I'm <bot name>
+
+  + you are diarrhea
+  - I can't believe you would say that to me!
+
+  + i am sorry
+  % (i cannot believe you would say that to me|i am not speaking to you until you apologize)
+  - I forgive you.
+
+  + *
+  % (i cannot believe you would say that to me|i am not speaking to you until you apologize)
+  - I'm not speaking to you until you apologize!
+
+  + my name is (heitor|graham|matteo|duncan)
+  - <set name=<star1>>Hi <get name>!{topic=<get name>}
+
+  + my name is *
+  - <set name=<star1>>Nice to meet you, <get name>!
+
+  + what is my name
+  * <get name> == undefined => You haven't told me your name yet...
+  - Your name is <get name>.
+
+  + thank you
+  - You're welcome.
+
+  + do you like fortnite
+  - Yes, I like Fortnite!
+
+  + knock knock
+  - Who's there?
+
+  + *
+  % who is there
+  - <star1> who?
+
+  + *
+  % * who
+  - hahahahahaha
+
+  + tell me a joke
+  - Why don't you buy velcro? Because it's such a ripoff!
+  - Why don't seagulls fly over the bay? Because then they would be bagels!
+
+  + where is *
+  - <call>city <star1></call>
+
+  + (sing|say|rap) *
+  - <call>song <star2></call>
+
+  + *
+  - Sorry, what?
+  - I don't understand.
+< topic
+
+> object song javascript
+    return new Promise((resolve, reject) => {
+        let song = args.join(' ');
+        let reply = "I don't know that one."
+        
+        if (song in SONGS) {
+            reply = '[dance]' + SONGS[song];
+        }
+
+        resolve(reply);
+    });
+< object
+
+> object city javascript
+    return new Promise((resolve, reject) => {
+        let city = args.join(' ');
+        let reply = "I'm not sure.";
+
+        if (city in CITIES) {
+            let province = CITIES[city];
+            reply = `${city} is in ${province}.`;
+        }
+
+        resolve(reply);
+    });
+< object

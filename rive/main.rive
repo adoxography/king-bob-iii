@@ -1,0 +1,20 @@
+// Global variables
+! version = 2.0
+
+// Bot variables
+! var name = King Bob III
+
+// Substitutions
+! sub i'm     = i am
+! sub you're  = you are
+! sub what's  = what is
+! sub what're = what are
+! sub when's  = when is
+! sub who's   = who is
+! sub where's = where is
+! sub can't   = cannot
+! sub it's    = it is
+
+// We need to get into the global topic, so this first trigger should be sent autonomously
++ hello
+- Hi, I'm <bot name>!{topic=global}
