@@ -7,44 +7,11 @@
 let canvas;
 let chatLog;
 let voiceSelect;
+let textInput;
 let bob;
 let avatar;
-
-
-
-
-
-
-
-let bot = new RiveScript();
+let riveBot;
 let riveLoaded = false;
-bot.loadFile('js/bot.rive').then(loading_done).catch(loading_error);
-
-function loading_done() {
-  console.log("Bot is loaded.");
-  riveLoaded = true;
-  bot.sortReplies();
-}
-
-function loading_error(error, filename, lineno) {
-  console.log("Error when loading files: " + error);
-}
-
-function riveChat(message) {
-  if (riveLoaded) {
-    bot.reply('local-user', message).then(reply => console.log(reply));
-  } else {
-    console.log('Wait a second while we get things up and running...');
-  }
-}
-
-
-
-
-
-
-
-
 
 /**
  * Initializes all of the variables needed for Bob to run
@@ -55,14 +22,18 @@ function setup() {
   canvas = createCanvas(500, 500);
   canvas.parent('bob-container');
   chatLog = createElement('ul');
+  chatLog.parent('chat-container');
+
+  riveBot = new RiveScript();
+  riveBot.loadFile('js/bot.rive').then(loading_done).catch(loading_error);
 
   bob = new KingBobIII();
-  bob.handleSpeechRecognized = chat;
+  bob.translate = riveChat;
   bob.onSpeak = speech => logMessage('BOB', speech);
   bob.listen();
 
   voiceSelect = createSelect();
-  voiceSelect.parent('option-container');
+  voiceSelect.parent('voice-select-container');
 
   bob.voice.onLoad = () => {
     for (let voice of bob.voice.voices) {
@@ -74,6 +45,16 @@ function setup() {
 
   voiceSelect.changed(() => {
     bob.setVoice(voiceSelect.value());
+  });
+
+  textInput = createInput();
+  textInput.addClass('input');
+  textInput.parent('text-input-container');
+
+  textInput.changed(e => {
+    let message = e.target.value;
+    textInput.value('');
+    bob.hear(message);
   });
 
   avatar = new KingBobIIIPresenter(bob);
@@ -99,4 +80,21 @@ function logMessage(speaker, message) {
   let el = createElement('li', `${speaker}: ${message}`);
   el.parent(chatLog);
   chatLog.elt.scrollTo(0, chatLog.elt.scrollHeight);
+}
+
+function loading_done() {
+  riveBot.sortReplies();
+  riveLoaded = true;
+
+  console.log("Bot is loaded.");
+  riveBot.reply('local-user', 'hello').then(reply => logMessage('King Bob III', reply));
+}
+
+function loading_error(error, filename, lineno) {
+  console.log("Error when loading files: " + error);
+}
+
+function riveChat(message) {
+  logMessage('You', message);
+  return riveBot.reply('local-user', message);
 }

@@ -49,10 +49,15 @@ class KingBobIII {
      */
     this.ears.onResult = () => {
       let result = this.ears.resultString;
-      let message = this.handleSpeechRecognized(result);
-      let lines = message.split('\n');
-      this.say(lines);
+      this.hear(result);
     };
+  }
+
+  hear(message) {
+    this.translate(message).then(reply => {
+      let lines = reply.split('\n');
+      this.say(lines);
+    });
   }
 
   /**
@@ -76,9 +81,21 @@ class KingBobIII {
    */
   speak() {
     if (this.speechQueue.length > 0) {
-      let speech = this.speechQueue[0];
+      let tags = [];
+      let nextLine = this.speechQueue[0];
+      let matches = nextLine.match(/^(\[.+\])?(.*)$/);
+      let speech = matches[2];
+
+      if (matches[1]) {
+        tags = matches[1].match(/\[.+?\]/);
+      }
+
       this.onSpeak(speech);
       this.voice.speak(speech);
+
+      if (tags.includes('[dance]')) {
+        this.dance();
+      }
     }
   }
 
@@ -105,14 +122,14 @@ class KingBobIII {
   }
 
   /**
-   * Dummy method for speech recognition which should be overridden
+   * Dummy method for generating a reponse to a message
    *
    * This basic method gives back exactly what was heard.
    *
-   * @param result  The speech that was recognized
+   * @param result  The input message
    * @return  The response to the speech
    */
-  handleSpeechRecognized(result) {
+  translate(result) {
     return result;
   }
 
