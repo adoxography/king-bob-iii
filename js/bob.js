@@ -7,6 +7,7 @@ class KingBobIII {
   constructor() {
     this.voice = new p5.Speech();
     this.ears = new p5.SpeechRec();
+    this.listening = true;
     this.speechQueue = [];
 
     this.dancingDirection = 0;
@@ -36,7 +37,7 @@ class KingBobIII {
      * again.
      */
     this.ears.onEnd = () => {
-      if (!this.isSpeaking()) {
+      if (this.listening && !this.isSpeaking()) {
         this.listen();
       }
     };
@@ -48,12 +49,30 @@ class KingBobIII {
      * speech() method.
      */
     this.ears.onResult = () => {
-      let result = this.ears.resultString;
-      this.hear(result);
+      if (this.listening) {
+        let result = this.ears.resultString;
+        this.hear(result);
+      }
     };
   }
 
+  /**
+   * Tells Bob to stop listening
+   *
+   * Speech recognition will not be restarted when it terminates, and anything
+   * recognized before its termination will be ignored.
+   */
+  stopListening() {
+    this.listening = false;
+  }
+
+  /**
+   * Handles hearing a message
+   *
+   * @message  The string that Bob heard
+   */
   hear(message) {
+    this.stopListening();
     this.translate(message).then(reply => {
       let lines = reply.split('\n');
       this.say(lines);
